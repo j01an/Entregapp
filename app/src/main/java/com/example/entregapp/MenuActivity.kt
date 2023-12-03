@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -50,17 +51,28 @@ class MenuActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu)
+        val userModel = MySharedPreferences.getUserModel()
+        val tvUser: TextView = findViewById(R.id.tvNameUser)
+        val tvEmail: TextView = findViewById(R.id.tvEmailUser)
+        if (userModel != null) {
+            tvUser.text = userModel.name
+            tvEmail.text = userModel.email
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_logout -> {
-                logOut()
+            R.id.cerrar_sesion -> {
+                // Aquí puedes poner la lógica para cerrar sesión
+                // Por ejemplo, puedes llamar a un método que realice el cierre de sesión
+                MySharedPreferences.clearSharedPreferences()
+                startActivity(Intent(this, LoginActivity::class.java))
                 return true
             }
-            else -> return super.onOptionsItemSelected(item)
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
