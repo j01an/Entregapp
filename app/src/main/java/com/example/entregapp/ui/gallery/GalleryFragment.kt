@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.entregapp.MenuActivity
 import com.example.entregapp.R
+import com.example.entregapp.SeguimientoActivity
 import com.example.entregapp.adapters.CompraAdapter
 import com.example.entregapp.databinding.FragmentGalleryBinding
 import com.example.entregapp.models.CompraModel
@@ -80,9 +81,9 @@ class GalleryFragment : Fragment() {
                 rvCompras.layoutManager = LinearLayoutManager(requireContext())
                 adapter.setOnItemClickListener(object : CompraAdapter.OnItemClickListener {
                     override fun onItemClick(producto: CompraModel) {
-//                        val intent = Intent(this, PedidoActivity::class.java)
-//                        intent.putExtra("PRODUCTO", producto)
-//                        startActivity(intent)
+                        val intent = Intent(requireContext(), SeguimientoActivity::class.java)
+                        intent.putExtra("PRODUCTO", producto)
+                        startActivity(intent)
                     }
                 })
             }

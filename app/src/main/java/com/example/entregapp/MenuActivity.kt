@@ -1,10 +1,10 @@
 package com.example.entregapp
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.content.Intent
 import android.view.MenuItem
-import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -40,7 +40,7 @@ class MenuActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_support
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -50,32 +50,33 @@ class MenuActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
-        super.onCreateOptionsMenu(menu)
-        val userModel = MySharedPreferences.getUserModel()
-        val tvUser: TextView = findViewById(R.id.tvNameUser)
-        val tvEmail: TextView = findViewById(R.id.tvEmailUser)
-        if (userModel != null) {
-            tvUser.text = userModel.name
-            tvEmail.text = userModel.email
-        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.cerrar_sesion -> {
-                // Aquí puedes poner la lógica para cerrar sesión
-                // Por ejemplo, puedes llamar a un método que realice el cierre de sesión
-                MySharedPreferences.clearSharedPreferences()
-                startActivity(Intent(this,LoginActivity::class.java))
+            R.id.action_logout -> {
+                logOut()
                 return true
             }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+
+    private fun logOut() {
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        MySharedPreferences.init(sharedPreferences)
+        MySharedPreferences.clearSharedPreferences()
+
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
 }

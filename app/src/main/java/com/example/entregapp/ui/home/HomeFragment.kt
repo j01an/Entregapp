@@ -1,5 +1,6 @@
 package com.example.entregapp.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,6 +39,9 @@ class HomeFragment : Fragment() {
         val rvProyectos: RecyclerView = view.findViewById(R.id.rvProductos)
         val db = FirebaseFirestore.getInstance()
         var lstProyectos: List<ProductoModel>
+
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        MySharedPreferences.init(sharedPreferences)
         val userModel = MySharedPreferences.getUserModel()
         db.collection("products")
             .addSnapshotListener{snap,e->
