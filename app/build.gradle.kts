@@ -66,6 +66,7 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.google.android.material:material:1.4.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.17")
 
 
 }
