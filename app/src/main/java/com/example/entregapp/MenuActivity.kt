@@ -68,7 +68,7 @@ class MenuActivity : AppCompatActivity() {
                 // Aquí puedes poner la lógica para cerrar sesión
                 // Por ejemplo, puedes llamar a un método que realice el cierre de sesión
                 MySharedPreferences.clearSharedPreferences()
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this,LoginActivity::class.java))
                 return true
             }
         }
