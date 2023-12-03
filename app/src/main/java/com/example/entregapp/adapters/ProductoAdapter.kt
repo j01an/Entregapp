@@ -22,8 +22,8 @@ class ProductoAdapter(private var lstProducts: List<ProductoModel>)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvProductoName: TextView = itemView.findViewById(R.id.tvProductoName)
-        val tvProductoPRecio: TextView = itemView.findViewById(R.id.tvProductoPrecio)
+        val tvProductoName: TextView = itemView.findViewById(R.id.tvCompraPrice)
+        val tvProductoPRecio: TextView = itemView.findViewById(R.id.tvCompraProduct)
 
         init {
             itemView.setOnClickListener {
